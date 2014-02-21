@@ -1,3 +1,25 @@
+;;; The BURNS frame
+(define-frame BURNS
+          (isa (value (violent-mop)))
+  (actor
+    (value (non-volitional-agent)))
+  (object
+    (value (physical-object)))
+  (goal-scene
+    (value (ingest
+         (actor
+           (value =actor)); Same actor as above
+         (object
+           (value =object)) ; Same object as above
+         )))
+  (scenes
+    (value (=goal-scene))); The scene is the goal scene
+  (main-result
+    (value (burning
+         (domain (value =object))
+         )))
+  )
+
 Token(tag='COMMENT', value=';;; The BURNS frame\n', line=2, column=9)
 Token(tag='RBRACE', value='(', line=2, column=37)
 Token(tag='WORD', value='define-frame', line=2, column=38)

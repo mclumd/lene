@@ -23,7 +23,7 @@ from lene.lexer import *
 from collections import defaultdict
 
 ##########################################################################
-## Test Case
+## Token Object Test Case
 ##########################################################################
 
 class TokenTests(unittest.TestCase):
@@ -49,6 +49,10 @@ class TokenTests(unittest.TestCase):
         tok = Token('WORD', 'Metacognitive', 2, 4)
         with self.assertRaises(AttributeError):
             tok.value = 'Mcl'
+
+##########################################################################
+## Tokenizer Test Case
+##########################################################################
 
 class TokenizerTest(unittest.TestCase):
 
@@ -183,3 +187,7 @@ class TokenizerTest(unittest.TestCase):
         for tag, count in expected.items():
             msg = "%s has incorrect count of %d != %d" % (tag, tag_count[tag], count)
             self.assertEqual(count, tag_count[tag], msg=msg)
+
+##########################################################################
+## Lexer Test Case
+##########################################################################
