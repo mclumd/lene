@@ -19,6 +19,8 @@ with the parenthetical representations of frames in META-Aqua.
 
 The tokenizer of the stream to pass to the lexical analysis is from:
     http://docs.python.org/3.2/library/re.html#writing-a-tokenizer
+
+TODO: Comments must have newlines
 """
 
 ##########################################################################
@@ -29,6 +31,7 @@ import re
 import collections
 
 from .exceptions import *
+from .utils import number
 
 ##########################################################################
 ## Tag and Module Constants
@@ -43,8 +46,10 @@ SKIP    = 'SKIP'
 COMMENT = 'COMMENT'
 WORD    = 'WORD'
 XREF    = 'XREF'
+NUMBER  = 'NUMBER'
+OPERAT  = 'OPERAT'
 
-Tags    = {RBRACE, LBRACE, COMMENT, WORD, XREF}
+Tags    = {RBRACE, LBRACE, COMMENT, WORD, XREF, NUMBER, OPERAT,}
 
 ##########################################################################
 ## Tokenization
@@ -53,13 +58,15 @@ Tags    = {RBRACE, LBRACE, COMMENT, WORD, XREF}
 class Tokenizer(object):
 
     SPECIFICATION = {
-        RBRACE:  r'\(',           # Opening brace
-        LBRACE:  r'\)',           # Closing brace
-        NEWLINE: r'\n',           # Line endings
-        SKIP:    r'[ \t]',        # Skip over spaces and tabs
-        COMMENT: r';.*\n',         # Capture comments
-        WORD:    r'[\d\w\._-]+',  # Identifiers as words
-        XREF:    r'=',            # Cross reference to other values
+        RBRACE:  r'\(',                   # Opening brace
+        LBRACE:  r'\)',                   # Closing brace
+        NEWLINE: r'\n',                   # Line endings
+        SKIP:    r'[ \t]',                # Skip over spaces and tabs
+        COMMENT: r';.*\n',                # Capture comments
+        WORD:    r'[a-zA-Z_][\w\._-]*',   # Identifiers as words
+        XREF:    r'=',                    # Cross reference to other values
+        NUMBER:  r'[-+]?[\d]*\.?[\d]+',   # Signed integers or floating point
+        OPERAT:  r'[+*\/\-%]',            # Arithmetic operators
     }
 
     KEYWORDS      = set([])
@@ -128,8 +135,3 @@ class Tokenizer(object):
 
         if pos != len(stream):
             raise UnexpectedCharacter(stream[pos], line)
-
-if __name__ == '__main__':
-
-    tokenizer = Tokenizer()
-    for token in tokenizer.tokenize(stmts): print token

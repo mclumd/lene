@@ -162,11 +162,13 @@ class TokenizerTest(unittest.TestCase):
             (value (burning
                  (domain (value =object))
                  )))
-          )"""
+          )
+        (define area (lambda (r) (* 3.14 (* r r))))
+        """
 
         tokenizer = Tokenizer()
         tokens = list(tokenizer.tokenize(stmts))
-        self.assertEqual(len(tokens), 87)
+        self.assertEqual(len(tokens), 106)
 
         # Count the various tags
         tag_count = defaultdict(int)
@@ -179,14 +181,139 @@ class TokenizerTest(unittest.TestCase):
         # Check counts
         expected = {
             COMMENT: 4,
-            RBRACE: 25,
-            LBRACE: 25,
-            WORD: 29,
+            RBRACE: 30,
+            LBRACE: 30,
+            WORD: 35,
             XREF: 4,
+            NUMBER: 1,
+            OPERAT: 2,
         }
         for tag, count in expected.items():
             msg = "%s has incorrect count of %d != %d" % (tag, tag_count[tag], count)
             self.assertEqual(count, tag_count[tag], msg=msg)
+
+##########################################################################
+## Lene Tokens Test Case
+##########################################################################
+
+class LeneTokensTest(unittest.TestCase):
+    """
+    Test the default tokens mapped in the Tokenizer specification.
+    """
+
+    def setUp(self):
+        self.tokenizer = Tokenizer()
+
+    def assertTag(self, token, tag, msg=None):
+        """
+        Assert that a token contains a particular tag.
+        If token is a basestring, tokenize and test first token.
+        """
+        if isinstance(token, basestring):
+            token = list(self.tokenizer.tokenize(token))[0]
+        self.assertTrue(isinstance(token, Token))
+        self.assertEqual(token.tag, tag, msg=msg)
+
+    def assertNotTag(self, token, tag, msg=None):
+        """
+        Assert that a token does not contain a particular tag.
+        If token is a basestring, tokenize and test firt token.
+
+        Note: does not handle UnexpectedCharacter exceptions.
+        """
+        if isinstance(token, basestring):
+            token = list(self.tokenizer.tokenize(token))[0]
+        self.assertTrue(isinstance(token, Token))
+        self.assertNotEqual(token.tag, tag, msg=msg)
+
+    def assertValidTags(self, tokens, tag, msg=None):
+        """
+        Assert that a list of tokens is a valid tag.
+        """
+        for token in tokens:
+            self.assertTag(token, tag, msg=msg)
+
+    def assertInvalidTags(self, tokens, tag, msg=None):
+        """
+        Assert that a list of tokens is not a valid tag.
+        """
+        for token in tokens:
+            self.assertNotTag(token, tag, msg=msg)
+
+    def test_rbrace(self):
+        """
+        Test RBRACE token
+        """
+        valid   = ["(", " ( ", "( "]
+        invalid = [")", '1', 'abc', ")("]
+
+        self.assertValidTags(valid, RBRACE)
+        self.assertInvalidTags(invalid, RBRACE)
+
+    def test_lbrace(self):
+        """
+        Test LBRACE token
+        """
+        valid   = [")", " ) ", ") "]
+        invalid = ["(", '1', 'abc', "()"]
+
+        self.assertValidTags(valid, LBRACE)
+        self.assertInvalidTags(invalid, LBRACE)
+
+    def test_comment(self):
+        """
+        Test COMMENT token
+
+        Note: Comments must have newlines?
+        """
+        valid   = [";\n", ";; Bob was here\n", ";comment\n"]
+        invalid = ["); comment\n", "words\n", "2.324\n"]
+
+        self.assertValidTags(valid, COMMENT)
+        self.assertInvalidTags(invalid, COMMENT)
+
+    def test_word(self):
+        """
+        Test WORD token
+        """
+        valid   = ['abc', 'define-frame', '_var', 'flight123', 'actor.0',
+                   'lady_bug', 'ladyBug', 'LADYBUG', 'LadyBug', '__var']
+        invalid = ['-joe', '123flight', '0.3', '.3', '(word)', '+joe']
+
+        self.assertValidTags(valid, WORD)
+        self.assertInvalidTags(invalid, WORD)
+
+    def test_xref(self):
+        """
+        Test XREF token
+        """
+        valid   = ['=actor', '=(', '=)']
+        invalid = ['a=b', '-=', 'foo', '1.23']
+
+        self.assertValidTags(valid, XREF)
+        self.assertInvalidTags(invalid, XREF)
+
+    def test_number(self):
+        """
+        Test NUMBER token
+
+        Note: 1x1 and 1e10 becomes 2 tokens NUMBER, WORD
+        """
+        valid   = ['0.3', '-3', '+4', '.832', '14091.313', '23', '-0.23', '+0.24']
+        invalid = ['a.3', 'zing', '(3)', ';3.0\n']
+
+        self.assertValidTags(valid, NUMBER)
+        self.assertInvalidTags(invalid, NUMBER)
+
+    def test_operat(self):
+        """
+        Test OPERAT token
+        """
+        valid   = ['+', '-', '*', '/', '%']
+        invalid = ['+3', '-4', 'abc', '3/4']
+
+        self.assertValidTags(valid, OPERAT)
+        self.assertInvalidTags(invalid, OPERAT)
 
 ##########################################################################
 ## Lexer Test Case
