@@ -1,4 +1,4 @@
-# META-Aqua-Lene #
+# META-Aqua-Lene [![Build Status][travis_img]][travis_url] #
 **A frame extraction tool for META-Aqua**
 
 META-Aqua is a reasoner about the reasoning tool Aqua and performs Meta
@@ -72,6 +72,8 @@ singer is [Lene Nystrøm][nystrøm] and it is after her that this package is
 named. (e.g. META-Aqua → Aqua → Lene)
 
 <!-- References -->
+[travis_img]: https://travis-ci.org/mclumd/lene.png?branch=master
+[travis_url]: https://travis-ci.org/mclumd/lene
 [aqua_official]: http://www.aquaofficial.com/
 [barbie_girl]: http://www.youtube.com/watch?v=ZyhrYis509A‎
 [nystrøm]: http://en.wikipedia.org/wiki/Lene_Nystr%C3%B8m
