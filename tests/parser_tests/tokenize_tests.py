@@ -1,5 +1,5 @@
-# tests.lexer_tests
-# Testing the lexical analysis and tokenization module
+# tests.parser_tests.tokenize_tests
+# Testing the tokenization module
 #
 # Author:   Benjamin Bengfort <bengfort@cs.umd.edu>
 # Created:  Fri Feb 21 10:15:07 2014 -0500
@@ -7,10 +7,10 @@
 # Copyright (C) 2014 UMD Metacognitive Lab
 # For license information, see LICENSE.txt
 #
-# ID: lexer_tests.py [] bengfort@cs.umd.edu $
+# ID: tokenize_tests.py [] bengfort@cs.umd.edu $
 
 """
-Testing the lexical analysis and tokenization module
+Testing the tokenization module
 """
 
 ##########################################################################
@@ -19,7 +19,7 @@ Testing the lexical analysis and tokenization module
 
 import unittest
 
-from lene.lexer import *
+from lene.parser.tokenize import *
 from collections import defaultdict
 
 ##########################################################################
@@ -104,6 +104,24 @@ class TokenizerTest(unittest.TestCase):
         tokenizer = Tokenizer(specification={"ASSIGN": r':='})
         token = tokenizer.get_token(':= bob')
         self.assertTrue(token) # Expecting an SRE_Match object
+
+    def test_unexpected_character(self):
+        """
+        Assure unexpected characters raise exceptions
+        """
+        tokenizer = Tokenizer()
+        with self.assertRaises(UnexpectedCharacter):
+            token = list(tokenizer.tokenize('$!@#%!#(!@#$~~SDVASF'))
+
+    def test_keywords(self):
+        """
+        Check that keywords come out as tags
+        """
+        tokenizer = Tokenizer(keywords={'IF', 'ELSE', 'THEN'})
+        token = list(tokenizer.tokenize('IF a THEN b ELSE c'))
+        self.assertEqual(token[0].tag, 'IF')
+        self.assertEqual(token[2].tag, 'THEN')
+        self.assertEqual(token[4].tag, 'ELSE')
 
     def test_simple_tokenize(self):
         """
@@ -314,7 +332,3 @@ class LeneTokensTest(unittest.TestCase):
 
         self.assertValidTags(valid, OPERAT)
         self.assertInvalidTags(invalid, OPERAT)
-
-##########################################################################
-## Lexer Test Case
-##########################################################################

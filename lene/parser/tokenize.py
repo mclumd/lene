@@ -1,23 +1,23 @@
-# lene.lex
-# Simple lexical analysis for Lisp representations
+# lene.parser.tokenize
+# Simple tokenizer for Lisp representations
 #
 # Author:   Benjamin Bengfort <bengfort@cs.umd.edu>
-# Created:  timestamp
+# Created:  Fri Feb 21 09:38:10 2014 -0500
 #
 # Copyright (C) 2014 UMD Metacognitive Lab
 # For license information, see LICENSE.txt
 #
-# ID: lex.py [] bengfort@cs.umd.edu $
+# ID: tokenize.py [] bengfort@cs.umd.edu $
 
 """
-Simple lexical analysis for Lisp representations.
+Simple tokenizer for Lisp representations.
 
-This class contains a Lexer that accepts a Stream and reads that stream,
-tokenizing it into a suitable grammar as it goes. This lexer makes heavy
-use of Regular Expressions for the Grammar, is is particularly concerned
-with the parenthetical representations of frames in META-Aqua.
+This class contains a Tokenizer that accepts a string, tokenizing it into
+a suitable grammar as it goes. This tokenizer makes heavy use of Regular
+Expressions for the Grammar, is is particularly concerned with the
+parenthetical representations of frames in META-Aqua.
 
-The tokenizer of the stream to pass to the lexical analysis is from:
+The tokenizer is based on the Regex tokenizer from:
     http://docs.python.org/3.2/library/re.html#writing-a-tokenizer
 
 TODO: Comments must have newlines
@@ -30,8 +30,8 @@ TODO: Comments must have newlines
 import re
 import collections
 
-from .exceptions import *
-from .utils import number
+from lene.exceptions import *
+from lene.utils import number
 
 ##########################################################################
 ## Tag and Module Constants
