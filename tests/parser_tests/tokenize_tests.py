@@ -17,7 +17,9 @@ Testing the tokenization module
 ## Imports
 ##########################################################################
 
+import os
 import unittest
+import tempfile
 
 from lene.parser.tokenize import *
 from collections import defaultdict
@@ -49,6 +51,35 @@ class TokenTests(unittest.TestCase):
         tok = Token('WORD', 'Metacognitive', 2, 4)
         with self.assertRaises(AttributeError):
             tok.value = 'Mcl'
+
+##########################################################################
+## Lisp-like fixture
+##########################################################################
+
+fixture = """
+;;; The BURNS frame
+(define-frame BURNS
+          (isa (value (violent-mop)))
+  (actor
+    (value (non-volitional-agent)))
+  (object
+    (value (physical-object)))
+  (goal-scene
+    (value (ingest
+         (actor
+           (value =actor)); Same actor as above
+         (object
+           (value =object)) ; Same object as above
+         )))
+  (scenes
+    (value (=goal-scene))); The scene is the goal scene
+  (main-result
+    (value (burning
+         (domain (value =object))
+         )))
+  )
+(define area (lambda (r) (* 3.14 (* r r))))
+"""
 
 ##########################################################################
 ## Tokenizer Test Case
@@ -158,34 +189,8 @@ class TokenizerTest(unittest.TestCase):
         """
         Test a real example from a representation
         """
-
-        stmts = """
-        ;;; The BURNS frame
-        (define-frame BURNS
-                  (isa (value (violent-mop)))
-          (actor
-            (value (non-volitional-agent)))
-          (object
-            (value (physical-object)))
-          (goal-scene
-            (value (ingest
-                 (actor
-                   (value =actor)); Same actor as above
-                 (object
-                   (value =object)) ; Same object as above
-                 )))
-          (scenes
-            (value (=goal-scene))); The scene is the goal scene
-          (main-result
-            (value (burning
-                 (domain (value =object))
-                 )))
-          )
-        (define area (lambda (r) (* 3.14 (* r r))))
-        """
-
         tokenizer = Tokenizer()
-        tokens = list(tokenizer.tokenize(stmts))
+        tokens = list(tokenizer.tokenize(fixture))
         self.assertEqual(len(tokens), 106)
 
         # Count the various tags
@@ -332,3 +337,40 @@ class LeneTokensTest(unittest.TestCase):
 
         self.assertValidTags(valid, OPERAT)
         self.assertInvalidTags(invalid, OPERAT)
+
+##########################################################################
+## TokenStream Test Case
+##########################################################################
+
+class TokenStreamTest(unittest.TestCase):
+
+    def setUp(self):
+        """
+        Setup temporary file as fixture.
+        """
+        hndl, path = tempfile.mkstemp(suffix='.lisp', prefix='representation-')
+        self.temppath = path
+        with open(path, 'w') as lispy:
+            lispy.write(fixture)
+
+    def tearDown(self):
+        """
+        Ensure remove of tempfile
+        """
+        if os.path.exists(self.temppath):
+            os.remove(self.temppath)
+        self.assertFalse(os.path.exists(self.temppath))
+
+    def test_open_stream(self):
+        """
+        Check tokenization on stream
+        """
+        stream = TokenStream(open(self.temppath, 'r'))
+        self.assertEqual(len(list(stream)), 106)
+
+    def test_path_stream(self):
+        """
+        Check pass path to stream
+        """
+        stream = TokenStream(self.temppath)
+        self.assertEqual(len(list(stream)), 106)

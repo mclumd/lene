@@ -135,3 +135,38 @@ class Tokenizer(object):
 
         if pos != len(stream):
             raise UnexpectedCharacter(stream[pos], line)
+
+##########################################################################
+## Token Stream
+##########################################################################
+
+class TokenStream(object):
+    """
+    Expects a file-like object with a `read` method, otherwise treats the
+    fp as a path and attempts to open it. It then uses the tokenizer class
+    to read the file from disk and generate tokens.
+    """
+
+    tokenizer_class = Tokenizer
+
+    def __init__(self, fp, tokenizer=None):
+        """
+        Pass in fp, an file-like object, or a path to open. You can also
+        pass in a custom Tokenizer class if desired, otherwise it will use
+        the default `tokenizer_class` on the class
+        """
+        if not hasattr(fp, 'read'):
+            fp = open(fp, 'r')
+
+        self.stream    = fp
+        self.tokenizer = tokenizer or self.tokenizer_class()
+
+    def __iter__(self):
+        """
+        Reads in entire stream, closes the fp and then yields each token.
+        """
+        self._stream = self.stream.read()
+        self.stream.close()
+
+        for token in self.tokenizer.tokenize(self._stream):
+            yield token
