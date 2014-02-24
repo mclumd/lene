@@ -39,6 +39,13 @@ commit any environment files or packages.
 
 ## Usage ##
 
+To interpret a Lisp file with `lene`, you can use the `load` or `loads`
+functions to parse a .lisp file into a Python object- a list based Tree.
+
+    data = lene.load(open('rep_fire.lisp'))
+
+This structure can then be read for linkages to convert to an RDF document.
+
 ### Testing ###
 This package is unit tested with `nosetests`. In the root of the package
 you can simply run `nosetests -v` and the test discovery runner will

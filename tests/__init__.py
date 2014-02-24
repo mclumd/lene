@@ -40,3 +40,11 @@ class InitializationTest(unittest.TestCase):
             import lene
         except ImportError:
             self.fail("Unable to import lene module!")
+
+    def test_membership(self):
+        """
+        Check top level module membership
+        """
+        import lene
+        self.assertTrue(hasattr(lene, 'load'))
+        self.assertTrue(hasattr(lene, 'loads'))
