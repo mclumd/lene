@@ -56,6 +56,15 @@ class TokenTests(unittest.TestCase):
 ## Lisp-like fixture
 ##########################################################################
 
+simple_fixture = """
+(define-frame BURNS
+  (isa (value (violent-mop)))
+  (actor
+    (value (non-volitional-agent)))
+  (object
+    (value (physical-object)))
+)"""
+
 fixture = """
 ;;; The BURNS frame
 (define-frame BURNS
@@ -191,7 +200,7 @@ class TokenizerTest(unittest.TestCase):
         """
         tokenizer = Tokenizer()
         tokens = list(tokenizer.tokenize(fixture))
-        self.assertEqual(len(tokens), 106)
+        self.assertEqual(len(tokens), 102)
 
         # Count the various tags
         tag_count = defaultdict(int)
@@ -206,7 +215,7 @@ class TokenizerTest(unittest.TestCase):
             COMMENT: 4,
             RBRACE: 30,
             LBRACE: 30,
-            WORD: 35,
+            WORD: 31,
             XREF: 4,
             NUMBER: 1,
             OPERAT: 2,
@@ -310,8 +319,8 @@ class LeneTokensTest(unittest.TestCase):
         """
         Test XREF token
         """
-        valid   = ['=actor', '=(', '=)']
-        invalid = ['a=b', '-=', 'foo', '1.23']
+        valid   = ['=actor', '=a123', '=_14']
+        invalid = ['a=b', '-=a', 'foo', '1.23']
 
         self.assertValidTags(valid, XREF)
         self.assertInvalidTags(invalid, XREF)
@@ -366,11 +375,11 @@ class TokenStreamTest(unittest.TestCase):
         Check tokenization on stream
         """
         stream = TokenStream(open(self.temppath, 'r'))
-        self.assertEqual(len(list(stream)), 106)
+        self.assertEqual(len(list(stream)), 102)
 
     def test_path_stream(self):
         """
         Check pass path to stream
         """
         stream = TokenStream(self.temppath)
-        self.assertEqual(len(list(stream)), 106)
+        self.assertEqual(len(list(stream)), 102)

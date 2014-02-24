@@ -34,3 +34,11 @@ class UtilsTests(unittest.TestCase):
         self.assertTrue(isinstance(number('3.14'), float))
         with self.assertRaises(ValueError):
             number('abcd')
+
+    def test_flatten_func(self):
+        """
+        Ensure that the flatten util works correctly.
+        """
+        tree = ['a', ['b', ['c', 'd'], 'e'], ['f', ['g', ['h'], ['i', ['j']]]]]
+        flat = list(flatten(tree))
+        self.assertEqual(flat, ['a','b','c','d','e','f','g','h','i','j'])

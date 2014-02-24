@@ -41,3 +41,9 @@ class UnexpectedCharacter(LexicalError):
     def __init__(self, char, line):
         msg = "Unexpected Character %r on line %d" % (char, line)
         super(UnexpectedCharacter, self).__init__(msg)
+
+class SyntacticError(LexicalError):
+    """
+    Improper syntax in knowledge base
+    """
+    pass

@@ -20,7 +20,8 @@ parenthetical representations of frames in META-Aqua.
 The tokenizer is based on the Regex tokenizer from:
     http://docs.python.org/3.2/library/re.html#writing-a-tokenizer
 
-TODO: Comments must have newlines
+TODO: Comments must have newlines (fix)
+TODO: ':' symbol for package imports raises exception
 """
 
 ##########################################################################
@@ -31,7 +32,6 @@ import re
 import collections
 
 from lene.exceptions import *
-from lene.utils import number
 
 ##########################################################################
 ## Tag and Module Constants
@@ -64,7 +64,7 @@ class Tokenizer(object):
         SKIP:    r'[ \t]',                # Skip over spaces and tabs
         COMMENT: r';.*\n',                # Capture comments
         WORD:    r'[a-zA-Z_][\w\._-]*',   # Identifiers as words
-        XREF:    r'=',                    # Cross reference to other values
+        XREF:    r'=[a-zA-Z_][\w\._-]*',  # Cross reference to other values
         NUMBER:  r'[-+]?[\d]*\.?[\d]+',   # Signed integers or floating point
         OPERAT:  r'[+*\/\-%]',            # Arithmetic operators
     }

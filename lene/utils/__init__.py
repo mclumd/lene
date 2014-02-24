@@ -30,3 +30,15 @@ def number(numstr):
         return int(numstr)
     except ValueError:
         return float(numstr)
+
+def flatten(tree):
+    """
+    Recursively flattens a tree (depth-first search). Expects a Tree that
+    is structured as a list of lists. No other types are allowed.
+    """
+    for node in tree:
+        if isinstance(node, list):
+            for subnode in flatten(node):
+                yield subnode
+        else:
+            yield node
