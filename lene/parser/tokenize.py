@@ -58,15 +58,15 @@ Tags    = {RBRACE, LBRACE, COMMENT, WORD, XREF, NUMBER, OPERAT,}
 class Tokenizer(object):
 
     SPECIFICATION = {
-        RBRACE:  r'\(',                   # Opening brace
-        LBRACE:  r'\)',                   # Closing brace
-        NEWLINE: r'\n',                   # Line endings
-        SKIP:    r'[ \t]',                # Skip over spaces and tabs
-        COMMENT: r';.*\n',                # Capture comments
-        WORD:    r'[a-zA-Z_][\w\._-]*',   # Identifiers as words
-        XREF:    r'=[a-zA-Z_][\w\._-]*',  # Cross reference to other values
-        NUMBER:  r'[-+]?[\d]*\.?[\d]+',   # Signed integers or floating point
-        OPERAT:  r'[+*\/\-%]',            # Arithmetic operators
+        RBRACE:  r'\(',                       # Opening brace
+        LBRACE:  r'\)',                       # Closing brace
+        NEWLINE: r'\n',                       # Line endings
+        SKIP:    r'[ \t]',                    # Skip over spaces and tabs
+        COMMENT: r';.*\n',                    # Capture comments
+        WORD:    r'[a-zA-Z_][\w\._\-><\?]*',  # Identifiers as words
+        XREF:    r'[=:][a-zA-Z_][\w\._-]*',   # Cross reference to other values
+        NUMBER:  r'[-+]?[\d]*\.?[\d]+',       # Signed integers or floating point
+        OPERAT:  r'[+*\/\-%]',                # Arithmetic operators
     }
 
     KEYWORDS      = set([])

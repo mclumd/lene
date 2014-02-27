@@ -66,6 +66,8 @@ simple_fixture = """
 )"""
 
 fixture = """
+(in-package :reps)
+
 ;;; The BURNS frame
 (define-frame BURNS
           (isa (value (violent-mop)))
@@ -74,7 +76,7 @@ fixture = """
   (object
     (value (physical-object)))
   (goal-scene
-    (value (ingest
+    (value (ingest->fuel
          (actor
            (value =actor)); Same actor as above
          (object
@@ -83,7 +85,7 @@ fixture = """
   (scenes
     (value (=goal-scene))); The scene is the goal scene
   (main-result
-    (value (burning
+    (value (burning?
          (domain (value =object))
          )))
   )
@@ -200,7 +202,7 @@ class TokenizerTest(unittest.TestCase):
         """
         tokenizer = Tokenizer()
         tokens = list(tokenizer.tokenize(fixture))
-        self.assertEqual(len(tokens), 102)
+        self.assertEqual(len(tokens), 106)
 
         # Count the various tags
         tag_count = defaultdict(int)
@@ -213,10 +215,10 @@ class TokenizerTest(unittest.TestCase):
         # Check counts
         expected = {
             COMMENT: 4,
-            RBRACE: 30,
-            LBRACE: 30,
-            WORD: 31,
-            XREF: 4,
+            RBRACE: 31,
+            LBRACE: 31,
+            WORD: 32,
+            XREF: 5,
             NUMBER: 1,
             OPERAT: 2,
         }
@@ -309,7 +311,8 @@ class LeneTokensTest(unittest.TestCase):
         Test WORD token
         """
         valid   = ['abc', 'define-frame', '_var', 'flight123', 'actor.0',
-                   'lady_bug', 'ladyBug', 'LADYBUG', 'LadyBug', '__var']
+                   'lady_bug', 'ladyBug', 'LADYBUG', 'LadyBug', '__var',
+                   'define->actor', 'list?', 'actor<-me']
         invalid = ['-joe', '123flight', '0.3', '.3', '(word)', '+joe']
 
         self.assertValidTags(valid, WORD)
@@ -319,7 +322,7 @@ class LeneTokensTest(unittest.TestCase):
         """
         Test XREF token
         """
-        valid   = ['=actor', '=a123', '=_14']
+        valid   = ['=actor', '=a123', '=_14', ":reps", ":_reps"]
         invalid = ['a=b', '-=a', 'foo', '1.23']
 
         self.assertValidTags(valid, XREF)
@@ -375,11 +378,11 @@ class TokenStreamTest(unittest.TestCase):
         Check tokenization on stream
         """
         stream = TokenStream(open(self.temppath, 'r'))
-        self.assertEqual(len(list(stream)), 102)
+        self.assertEqual(len(list(stream)), 106)
 
     def test_path_stream(self):
         """
         Check pass path to stream
         """
         stream = TokenStream(self.temppath)
-        self.assertEqual(len(list(stream)), 102)
+        self.assertEqual(len(list(stream)), 106)
