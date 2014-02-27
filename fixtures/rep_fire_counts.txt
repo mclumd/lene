@@ -1,0 +1,137 @@
+Tree Level 1
+============
+  23   define-frame
+  7    define-attribute-value
+  1    in-package
+  1    define-relation
+
+Tree Level 2
+============
+  31   isa
+  10   actor
+  10   object
+  5    goal-scene
+  5    main-result
+  5    scenes
+  4    preconditions
+  4    success
+  3    links
+  3    internal-nodes
+  3    pre-xp-nodes
+  3    ante
+  3    link1
+  3    consequent
+  3    role
+  3    explains
+  3    xp-asserted-nodes
+  3    heat
+  3    antecedent
+  3    conseq
+  2    link2
+  2    recipient
+  1    domain
+  1    result
+  1    slot
+  1    goal
+  1    fuel
+  1    link4
+  1    link3
+  1    co-domain
+  1    element
+
+Tree Level 3
+============
+  123  value
+
+Tree Level 4
+============
+  9    physical-object
+  8    volitional-agent
+  6    results
+  6    temperature-value
+  6    mop
+  6    block
+  5    =goal-scene
+  4    square
+  4    temperature
+  4    possess
+  4    boolean-value
+  3    burning
+  3    =actor
+  3    =link1
+  3    actor
+  3    =ante
+  3    ptrans
+  3    non-volitional-agent
+  2    primitive-xp
+  2    at-location
+  2    on
+  2    near
+  1    forced-by-states
+  1    violent-mop
+  1    atrans
+  1    physical-object-attribute-value
+  1    xp
+  1    toy
+  1    criminal-volitional-agent
+  1    crime
+  1    abstract-object
+  1    triangle
+  1    nature
+  1    light-object
+  1    physical-object-attribute
+  1    ignition-xp
+  1    xp-instrumental-scene->actor
+  1    burns
+  1    ingest
+  1    person
+  1    model
+
+Tree Level 5
+============
+  25   domain
+  23   co-domain
+  9    actor
+  8    object
+  4    to
+  2    from
+  2    conseq
+  1    instrumental-object
+  1    main-action
+  1    main-result
+  1    frame-list
+  1    heat
+  1    role
+  1    ante
+  1    action
+
+Tree Level 6
+============
+  81   value
+
+Tree Level 7
+============
+  5    at-location
+  1    physical-location
+  1    oxygen
+  1    =heat
+  1    light-object
+  1    ignition-device
+  1    burns
+
+Tree Level 8
+============
+  5    domain
+  3    co-domain
+  1    instrumental-object
+  1    actor
+  1    object
+
+Tree Level 9
+============
+  11   value
+
+Tree Level 10
+=============
+  1    ignition-device
+
