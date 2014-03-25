@@ -42,3 +42,17 @@ def flatten(tree):
                 yield subnode
         else:
             yield node
+
+def walk(tree, depth=0):
+    """
+    Enumerates a tree's tokens by walking it in a depth-first fashion.
+    Returns the index of the token in its tree as well as it's depth much
+    like the builtin enumerate method.
+    """
+    tree = tree or self.tree
+    for idx,node in enumerate(tree):
+        if isinstance(node, list):
+            for idx, subnode, nextdepth in walk(node, depth+1):
+                yield idx, subnode, nextdepth
+        else:
+            yield idx, node, depth

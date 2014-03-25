@@ -12,6 +12,8 @@
 
 """
 Counts the tokens in a Lisp file
+
+TODO: test.
 """
 
 ##########################################################################
@@ -31,7 +33,7 @@ from lene.utils.stats import TokenFrequency
 ## Main functionality
 ##########################################################################
 
-def main():
+def main(*argv):
     """
     Entry point for command functionality
     """
@@ -45,18 +47,9 @@ def main():
     parser.add_argument('infile', type=argparse.FileType('r'), nargs='?')
     namespace = parser.parse_args()
 
-    freq   = TokenFrequency(load(namespace.infile))
-    tokens = freq.count()
-    for key in tokens:
-        tokens[key] = sorted(tokens[key].items(), key=operator.itemgetter(1), reverse=True)
+    tokens   = TokenFrequency.from_tree(load(namespace.infile))
+    print tokens
 
-    for depth, counts in tokens.items():
-        header = "Tree Level %i" % depth
-        print header
-        print "=" * len(header)
-        for token, count in counts:
-            print "  {0: <4} {1}".format(count, token)
-        print
 
 if __name__ == '__main__':
-    main()
+    main(*sys.argv)

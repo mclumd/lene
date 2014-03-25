@@ -60,7 +60,7 @@ class Tokenizer(object):
     SPECIFICATION = {
         RBRACE:  r'\(',                       # Opening brace
         LBRACE:  r'\)',                       # Closing brace
-        NEWLINE: r'\n',                       # Line endings
+        NEWLINE: r'\r?\n',                    # Line endings
         SKIP:    r'[ \t]',                    # Skip over spaces and tabs
         COMMENT: r';.*\n',                    # Capture comments
         WORD:    r'[a-zA-Z_][\w\._\-><\?]*',  # Identifiers as words

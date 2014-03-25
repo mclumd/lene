@@ -4,15 +4,15 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;
-;;;;          Meta-AQUA Background Knowledge Represented as Frames
+;;;;	      Meta-AQUA Background Knowledge Represented as Frames
 ;;;;
-;;;;        Copyright (C) 2013   Michael T. Cox   (mcox@cs.umd.edu)
+;;;;	    Copyright (C) 2013   Michael T. Cox   (mcox@cs.umd.edu)
 ;;;;
 ;;;;
 ;;;;                           File: rep_fire.lisp
 ;;;;
 ;;;;
-;;;;          *******************************************************
+;;;;	      *******************************************************
 ;;;
 ;;; This  program is  free  software; you can redistribute it and/or  modify it
 ;;; under the terms  of the GNU General Public License as published by the Free
@@ -88,7 +88,7 @@
 
 
 (define-frame NON-VOLITIONAL-AGENT
-          (isa (value (abstract-object)))
+	      (isa (value (abstract-object)))
   )
 
 (define-frame TEMPERATURE-VALUE
@@ -146,15 +146,15 @@
   (actor (value (volitional-agent)))
   (object (value (physical-object)))
   (preconditions (value (near
-              (domain (value =object))
-              (co-domain (value =actor)))))
+			  (domain (value =object))
+			  (co-domain (value =actor)))))
   (goal-scene (value (atrans
-               (actor (value =actor))
-               (object (value =object))
-               (to (value =main-result)))))
+		       (actor (value =actor))
+		       (object (value =object))
+		       (to (value =main-result)))))
   (main-result (value (possess
-            (domain (value =actor))
-            (co-domain (value =object)))))
+			(domain (value =actor))
+			(co-domain (value =object)))))
   (scenes (value (=goal-scene)))
   (success (value (boolean-value))); For recording whether the action met expectations.
   )
@@ -165,18 +165,18 @@
   (actor (value (volitional-agent)))
   (object (value (physical-object)))
   (preconditions (value (possess
-              (domain (value =actor))
-              (co-domain (value =object)))))
+			  (domain (value =actor))
+			  (co-domain (value =object)))))
   (goal-scene (value (ptrans
-               (actor (value =actor))
-               (object (value =object))
-               (to (value (at-location
-                   (domain (value =object))
-                   (co-domain
-                    (value =main-result))))))))
+		       (actor (value =actor))
+		       (object (value =object))
+		       (to (value (at-location
+				   (domain (value =object))
+				   (co-domain
+				    (value =main-result))))))))
   (main-result (value (near
-            (domain (value =object))
-            (co-domain (value =actor)))))
+			(domain (value =object))
+			(co-domain (value =actor)))))
   (scenes (value (=goal-scene)))
   (success (value (boolean-value))); For recording whether the action met expectations.
   )
@@ -187,23 +187,23 @@
   (object (value (block)))
   (recipient (value (block)))
   (preconditions (value (possess
-              (domain (value =actor))
-              (co-domain (value =object)))))
+			  (domain (value =actor))
+			  (co-domain (value =object)))))
   (goal-scene (value (ptrans
-               (actor (value =actor))
-               (object (value =object))
-               (from (value (at-location
-                   (domain (value =object))
-                   ;;(co-domain
-                   ;; (value =preconditions))
-                   )))
-               (to (value (at-location
-                   (domain (value =object))
-                   (co-domain
-                    (value =main-result))))))))
+		       (actor (value =actor))
+		       (object (value =object))
+		       (from (value (at-location
+				   (domain (value =object))
+				   ;;(co-domain
+				   ;; (value =preconditions))
+				   )))
+		       (to (value (at-location
+				   (domain (value =object))
+				   (co-domain
+				    (value =main-result))))))))
   (main-result (value (on
-            (domain (value =object))
-            (co-domain (value =recipient)))))
+			(domain (value =object))
+			(co-domain (value =recipient)))))
   (scenes (value (=goal-scene)))
   (success (value (boolean-value))); For recording whether the action met expectations.
   )
@@ -216,23 +216,23 @@
   (object (value (block)))
   (recipient (value (block)))
   (preconditions (value (on
-              (domain (value =object))
-              (co-domain (value =recipient)))))
+			  (domain (value =object))
+			  (co-domain (value =recipient)))))
   (goal-scene (value (ptrans
-               (actor (value =actor))
-               (object (value =object))
-               (from (value (at-location
-                     (domain (value =object))
-                     (co-domain
-                      (value =preconditions)))))
-               (to (value (at-location
-                     (domain (value =object))
-                     ;;(co-domain
-                     ;; (value =main-result))
-                     ))))))
+		       (actor (value =actor))
+		       (object (value =object))
+		       (from (value (at-location
+				     (domain (value =object))
+				     (co-domain
+				      (value =preconditions)))))
+		       (to (value (at-location
+				     (domain (value =object))
+				     ;;(co-domain
+				     ;; (value =main-result))
+				     ))))))
   (main-result (value (possess
-            (domain (value =actor))
-            (co-domain (value =object)))))
+			(domain (value =actor))
+			(co-domain (value =object)))))
   (scenes (value (=goal-scene)))
   (success (value (boolean-value))); For recording whether the action met expectations.
   )
@@ -249,48 +249,48 @@
 ;;; For example, "Heat + oxygen + fuel cause fire."
 ;;;
 (define-frame FORCED-BY-STATES
-          (isa (value (primitive-xp)))
-  (actor (value (non-volitional-agent)  ;Was nature.0
-        ))
+	      (isa (value (primitive-xp)))
+  (actor (value (non-volitional-agent)	;Was nature.0
+		))
   (object (value (physical-object)))
   (ante (value (model
-        (frame-list (value (=heat =element =fuel))))))
+		(frame-list (value (=heat =element =fuel))))))
   (conseq (value (burns
-          (actor (value =actor))
-          (object (value =object))
-          (main-result (value =result)))))
+		  (actor (value =actor))
+		  (object (value =object))
+		  (main-result (value =result)))))
   (fuel (value (at-location (domain (value =object))
-                (co-domain (value (physical-location =l))))))
+			    (co-domain (value (physical-location =l))))))
   (element (value (at-location (domain (value (oxygen)))
-                (co-domain (value =l)))))
+			    (co-domain (value =l)))))
   (heat (value (temperature (domain (value =object))
-                (co-domain (value very-hot.0)))))
+			    (co-domain (value very-hot.0)))))
   (result (value (burning (domain (value =object))
-              (co-domain (value true.0)))))
+			  (co-domain (value true.0)))))
   (goal (value (burning
-        (domain (value =object))
-        (co-domain (value false.0)))))
+		(domain (value =object))
+		(co-domain (value false.0)))))
   (antecedent (value =ante))
   (consequent (value =conseq))
   (role (value (actor
-         (domain (value =conseq))
-         (co-domain (value =actor)))))
+		 (domain (value =conseq))
+		 (co-domain (value =actor)))))
   (explains (value =role))
   (pre-xp-nodes (value (=actor =conseq =object =role)))
   (internal-nodes (value nil.0))
   (xp-asserted-nodes (value (=ante)))
   (link1 (value (results
-          (domain (value =ante))
-          (co-domain (value =conseq)))))
+		  (domain (value =ante))
+		  (co-domain (value =conseq)))))
   (link2 (value (results
-          (domain (value =heat))
-          (co-domain (value =conseq)))))
+		  (domain (value =heat))
+		  (co-domain (value =conseq)))))
   (link3 (value (results
-          (domain (value =element))
-          (co-domain (value =conseq)))))
+		  (domain (value =element))
+		  (co-domain (value =conseq)))))
   (link4 (value (results
-          (domain (value =fuel))
-          (co-domain (value =conseq)))))
+		  (domain (value =fuel))
+		  (co-domain (value =conseq)))))
   (links (value (=link1 =link2 =link3 =link4)))
   )
 
@@ -302,101 +302,102 @@
 ;;; object.
 ;;;
 (define-frame IGNITION-XP
-          (isa (value (primitive-xp)))
+	      (isa (value (primitive-xp)))
   (actor (value (volitional-agent)))
   (object (value (physical-object)))
   (ante (value (light-object
-        (actor (value =actor))
-        (instrumental-object
-         (value (ignition-device)))
-        )))
+		(actor (value =actor))
+		(instrumental-object
+		 (value (ignition-device)))
+		)))
   (conseq (value =heat))
   (heat (value (temperature (domain (value =object))
-                (co-domain (value very-hot.0)))))
+			    (co-domain (value very-hot.0)))))
   (antecedent (value =ante))
   (consequent (value =conseq))
   (role (value (actor
-         (domain (value =conseq))
-         (co-domain (value =actor)))))
+		 (domain (value =conseq))
+		 (co-domain (value =actor)))))
   (explains (value =role))
   (pre-xp-nodes (value (=actor =conseq =object =role)))
   (internal-nodes (value nil.0))
   (xp-asserted-nodes (value (=ante)))
-  (link1 (value (results        ;results-in instead? If so fix the domain of the state that is the conseq of the results-in
-          (domain (value =ante))
-          (co-domain (value =conseq)))))
+  (link1 (value (results		;results-in instead? If so fix the domain of the state that is the conseq of the results-in
+		  (domain (value =ante))
+		  (co-domain (value =conseq)))))
   (links (value (=link1)))
   )
 
 (define-frame ARSONIST-XP
-          (isa (value (xp)))
+	      (isa (value (xp)))
   (actor (value (criminal-volitional-agent)))
   (object (value (physical-object)))
   (ante (value (ignition-xp
-        (actor (value =actor))
-        (object
-         (value =object))
-        (ante (value (light-object =l-o
-                  (actor (value =actor))
-                  (instrumental-object
-                   (value (ignition-device)))
-                  )))
-        (conseq (value =heat))
-        )))
+		(actor (value =actor))
+		(object
+		 (value =object))
+		(ante (value (light-object =l-o
+			      (actor (value =actor))
+			      (instrumental-object
+			       (value (ignition-device)))
+			      )))
+		(conseq (value =heat))
+		)))
   (conseq (value (forced-by-states
-          (object (value =object))
-          (heat (value =heat))
-          (conseq (value (burns =b
-                  (object (value =object))
-                  )))
-          )))
+		  (object (value =object))
+		  (heat (value =heat))
+		  (conseq (value (burns =b
+				  (object (value =object))
+				  )))
+		  )))
   (heat (value (temperature (domain (value =object))
-                (co-domain (value very-hot.0)))))
+			    (co-domain (value very-hot.0)))))
   ;; Added [mcox 19-21nov13]
   ;; Note that the controlsstate is the main result of an arrest mop in rep_smuggle4
   ;; Commented out so GDA goal gen can handle instead [mcox 27jan14]
   ;;(goal (value (controls
-        ;(domain (value (authority)))
-;;      (co-domain (value =actor))
-;;      )))
+		;(domain (value (authority)))
+;;		(co-domain (value =actor))
+;;		)))
   (antecedent (value =ante))
   (consequent (value =conseq))
   (role (value (actor
-         (domain (value =b))
-         ;;(co-domain (value =actor))
-         )))
+		 (domain (value =b))
+		 ;;(co-domain (value =actor))
+		 )))
   (explains (value =role))
   (pre-xp-nodes (value (=actor =conseq =object =role)))
   (internal-nodes (value nil.0))
   (xp-asserted-nodes (value (=ante)))
   (link1 (value (results
-          (domain (value =ante))
-          (co-domain (value =conseq)))))
+		  (domain (value =ante))
+		  (co-domain (value =conseq)))))
   (link2 (value (xp-instrumental-scene->actor
-         (actor (value =actor))
-         (action (value =l-o))
-         (main-action (value =b))
-         (role (value =role)))))
+		 (actor (value =actor))
+		 (action (value =l-o))
+		 (main-action (value =b))
+		 (role (value =role)))))
   (links (value (=link1 =link2)))
   )
 
 (define-frame BURNS
-          (isa (value (violent-mop)))
+	      (isa (value (violent-mop)))
   (actor
     (value (non-volitional-agent)))
   (object
     (value (physical-object)))
   (goal-scene
     (value (ingest
-         (actor
-           (value =actor))
-         (object
-           (value =object))
-         )))
+	     (actor
+	       (value =actor))
+	     (object
+	       (value =object))
+	     )))
   (scenes
     (value (=goal-scene)))
   (main-result
     (value (burning
-         (domain (value =object))
-         )))
+	     (domain (value =object))
+	     )))
   )
+

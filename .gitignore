@@ -40,3 +40,6 @@ nosetests.xml
 # Virtual Environments
 venv
 env
+
+# Fixtures
+fixtures/*.lisp

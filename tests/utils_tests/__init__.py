@@ -42,3 +42,16 @@ class UtilsTests(unittest.TestCase):
         tree = ['a', ['b', ['c', 'd'], 'e'], ['f', ['g', ['h'], ['i', ['j']]]]]
         flat = list(flatten(tree))
         self.assertEqual(flat, ['a','b','c','d','e','f','g','h','i','j'])
+
+    def test_walk_func(self):
+        """
+        Ensure that the walk util works depth first
+
+        Expected- an enumeration with idx, node, depth
+        """
+        tree = ['a', ['b', ['c', 'd'], 'e'], ['f', ['g', ['h'], ['i', ['j']]]]]
+        flat = list(walk(tree))
+        true = [(0, 'a', 0), (0, 'b', 1), (0, 'c', 2), (1, 'd', 2),
+                (2, 'e', 1), (0, 'f', 1), (0, 'g', 2), (0, 'h', 3),
+                (0, 'i', 3), (0, 'j', 4)]
+        self.assertEqual(flat, true)
