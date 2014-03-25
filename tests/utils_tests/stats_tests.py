@@ -379,27 +379,81 @@ class TokenFrequencyTests(unittest.TestCase):
         Assert a token frequency construction from tree
         """
         tree = ['a', ['b', ['c', 'd'], 'e'], ['f', ['g', ['h'], ['i', ['j']]]]]
-        freq = TokenFrequency.from_tree(tree)
+        freq = TokenFrequency.from_tree(tree, idxmax=10) # idxmax to ensure capture
 
         for i in xrange(0,5):
             self.assertIn(i, freq)
 
-    @unittest.skip
+        levels = (
+            ('a',),
+            ('b', 'e', 'f'),
+            ('c', 'd', 'g'),
+            ('i', 'h'),
+            ('j', )
+        )
+
+        for idx, chars in enumerate(levels):
+            for char in chars:
+                self.assertIn(char, freq[idx])
+                self.assertEqual(1, freq[idx][char])
+
     def test_from_tree_idx_max(self):
         """
         Assert frequency construction with idx max
         """
-        pass
+        tree = ['a', ['b', ['c', 'd'], 'e'], ['f', ['g', ['h'], ['i', ['j']]]]]
+        freq = TokenFrequency.from_tree(tree, idxmax=0) # idxmax to filter
+
+        for i in xrange(0,5):
+            self.assertIn(i, freq)
+
+        levels = (
+            ('a',),
+            ('b', 'f'),
+            ('c', 'g'),
+            ('i', 'h'),
+            ('j', )
+        )
+
+        for idx, chars in enumerate(levels):
+            for char in chars:
+                self.assertIn(char, freq[idx])
+                self.assertEqual(1, freq[idx][char])
 
     def test_update(self):
         """
         Test updating of two token frequencies
         """
         tree = ['a', ['b', ['c', 'd'], 'e'], ['f', ['g', ['h'], ['i', ['j']]]]]
-        alph = TokenFrequency.from_tree(tree)
-        beth = TokenFrequency.from_tree(tree)
+        alph = TokenFrequency.from_tree(tree, idxmax=3)
+        beth = TokenFrequency.from_tree(tree, idxmax=3)
 
-        print alph
         alph.update(beth)
-        print alph
-        self.assertEqual(2, alph[1]['f'])
+        for i in xrange(0,5):
+            self.assertIn(i, alph)
+
+        levels = (
+            ('a',),
+            ('b', 'e', 'f'),
+            ('c', 'd', 'g'),
+            ('i', 'h'),
+            ('j', )
+        )
+
+        for idx, chars in enumerate(levels):
+            for char in chars:
+                self.assertIn(char, alph[idx])
+                self.assertEqual(2, alph[idx][char])
+
+    def test_string_reps(self):
+        """
+        Exercise the string methods of TokenFrequency
+        """
+        tree = ['a', ['b', ['c', 'd'], 'e'], ['f', ['g', ['h'], ['i', ['j']]]]]
+        freq = TokenFrequency.from_tree(tree)
+
+        try:
+            tstr = str(freq)
+            trpr = repr(freq)
+        except Exception as e:
+            self.fail(str(e))

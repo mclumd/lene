@@ -47,3 +47,13 @@ class SyntacticError(LexicalError):
     Improper syntax in knowledge base
     """
     pass
+
+##########################################################################
+## Runtime Exception
+##########################################################################
+
+class LeneRuntimeError(Exception):
+    """
+    Raise these to print an error and exit 2
+    """
+    pass

@@ -29,7 +29,7 @@ except ImportError:
 ## Package Information
 ##########################################################################
 
-packages = find_packages(where=".", exclude=("tests", "bin", "docs", "fixtures",))
+packages = find_packages(where=".", exclude=("tests", "scripts", "docs", "fixtures",))
 requires = []
 
 with open('requirements.txt', 'r') as reqfile:
@@ -53,7 +53,7 @@ classifiers = (
 
 config = {
     "name": "META-Aqua Lene",
-    "version": "0.1",
+    "version": "0.2",
     "description": "A frame extraction tool for META-Aqua",
     "author": "Benjamin Bengfort",
     "author_email": "bengfort@cs.umd.edu",
@@ -62,7 +62,7 @@ config = {
     "install_requires": requires,
     "classifiers": classifiers,
     "zip_safe": True,
-    "scripts": [],
+    "scripts": ["scripts/lene"],
 }
 
 ##########################################################################

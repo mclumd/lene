@@ -1,0 +1,114 @@
+#!/usr/bin/env python
+# count
+# Counts the tokens in a Lisp file
+#
+# Author:   Benjamin Bengfort <bengfort@cs.umd.edu>
+# Created:  Thu Feb 27 11:04:30 2014 -0500
+#
+# Copyright (C) 2014 UMD Metacognitive Lab
+# For license information, see LICENSE.txt
+#
+# ID: count.py [] bengfort@cs.umd.edu $
+
+"""
+Counts the tokens in a Lisp file
+
+TODO: test.
+"""
+
+##########################################################################
+## Imports
+##########################################################################
+
+import os
+import sys
+import json
+import argparse
+import operator
+
+from lene import load
+from lene.exceptions import *
+from lene.utils.stats import TokenFrequency
+
+##########################################################################
+## Module Variables
+##########################################################################
+
+config = {
+    "description": "Parses Lisp KB represenations into RDF format",
+    "epilog": "Please report any errors to Ben."
+}
+
+##########################################################################
+## Helper functions
+##########################################################################
+
+def parse_trees(namespace):
+    """
+    Generator that yields parse trees one at a time from the infiles.
+    """
+    for infile in namespace.infiles:
+        try:
+            yield load(infile)
+        except UnexpectedCharacter as e:
+            message = str(e) + " in file " + infile.name
+            raise LeneRuntimeError(message)
+
+##########################################################################
+## Commands
+##########################################################################
+
+def count(namespace):
+    """
+    Deals with the count command - counting the infile and writing to the
+    standard output of the command.
+    """
+    tokens = TokenFrequency()
+    for tree in parse_trees(namespace):
+        tokens.update(TokenFrequency.from_tree(tree))
+    namespace.outfile.write(tokens.pprint(depth=namespace.depth))
+
+##########################################################################
+## Main functionality
+##########################################################################
+
+def main(*argv):
+    """
+    Entry point for command functionality
+    """
+
+    # Construct argparse to read in input from command line.
+    parser = argparse.ArgumentParser(**config)
+
+    # Add common positional arguments
+    parser.add_argument('infiles', metavar="reps", default=sys.stdin, type=argparse.FileType('r'), nargs='*', help="Lisp KB representations")
+
+    # Add common keyword (optional) arguments
+    parser.add_argument('-d', '--depth', default=None, metavar="INT", type=int, help='Specify a maximum tree depth')
+    parser.add_argument('-w', default=sys.stdout, dest="outfile", metavar="PATH", type=argparse.FileType('w'), help="Write output to a file or to stdout.")
+    parser.add_argument('--count', action="store_true", help="count tokens and exit")
+
+    # Parse arguments from string on command line
+    namespace = parser.parse_args()
+
+    # Catch any runtime errors and return appropriately
+    try:
+        # Jumptable are mutually exclusive actions that are flagged
+        actions = {
+            "count": count
+        }
+
+        # Check if actions have been flagged and then handle them
+        for action, method in actions.items():
+            if hasattr(namespace, action) and getattr(namespace, action):
+                parser.exit(0, method(namespace))
+
+        # Default functionality
+        msg = "Main functionality not working yet\n"
+        parser.exit(0, msg)
+    except LeneRuntimeError as e:
+        parser.error(str(e))
+
+
+if __name__ == '__main__':
+    main(*sys.argv)

@@ -278,7 +278,7 @@ class TokenFrequency(dict):
 
     def __missing__(self, key):
         self[key] = Histogram()
-        return Histogram()
+        return self[key]
 
     def update(self, iterable=None, **kwargs):
         """
