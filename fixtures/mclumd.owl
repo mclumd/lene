@@ -1,0 +1,412 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://webprotege.stanford.edu/project/h9bbrktUtOdpim7m5pcmK#"
+     xml:base="http://webprotege.stanford.edu/project/h9bbrktUtOdpim7m5pcmK"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:webprotege="http://protege.stanford.edu/webprotege/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://webprotege.stanford.edu/project/h9bbrktUtOdpim7m5pcmK">
+        <webprotege:revision rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">142</webprotege:revision>
+        <dc:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">Feb 18, 2014 1:40:03 PM</dc:date>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Metacognitive Ontology for the Mcl group at the University of Maryland</rdfs:comment>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This ontology was generated from an ontology revision in WebProtégé http://webprotege.stanford.edu</rdfs:comment>
+        <dc:creator rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bbengfort</dc:creator>
+        <dc:creator rdf:datatype="http://www.w3.org/2001/XMLSchema#string">system</dc:creator>
+    </owl:Ontology>
+
+
+
+    <!--
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+
+
+    <!-- http://cs.umd.edu/active/#actor -->
+
+    <owl:ObjectProperty rdf:about="http://cs.umd.edu/active/#actor">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The agent that is the subject of the action predicate. The agent that is causing an action.</rdfs:comment>
+        <rdfs:domain rdf:resource="http://cs.umd.edu/active/#Action"/>
+        <rdfs:range rdf:resource="http://cs.umd.edu/active/#Agent"/>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://cs.umd.edu/active/#from -->
+
+    <owl:ObjectProperty rdf:about="http://cs.umd.edu/active/#from">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The origin of the act of motion</rdfs:comment>
+        <rdfs:domain rdf:resource="http://cs.umd.edu/active/#Action"/>
+        <rdfs:range rdf:resource="http://cs.umd.edu/active/#Object"/>
+        <rdfs:subPropertyOf rdf:resource="http://cs.umd.edu/active/#motion"/>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://cs.umd.edu/active/#motion -->
+
+    <owl:ObjectProperty rdf:about="http://cs.umd.edu/active/#motion">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The act of being moved or transported</rdfs:comment>
+        <rdfs:domain rdf:resource="http://cs.umd.edu/active/#Action"/>
+        <rdfs:range rdf:resource="http://cs.umd.edu/active/#Object"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://cs.umd.edu/active/#object -->
+
+    <owl:ObjectProperty rdf:about="http://cs.umd.edu/active/#object">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the direct object or the thing being acted upon</rdfs:comment>
+        <rdfs:domain rdf:resource="http://cs.umd.edu/active/#Predicate"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://cs.umd.edu/active/#to -->
+
+    <owl:ObjectProperty rdf:about="http://cs.umd.edu/active/#to">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">relating to the destination of the act of motion</rdfs:comment>
+        <rdfs:domain rdf:resource="http://cs.umd.edu/active/#Action"/>
+        <rdfs:range rdf:resource="http://cs.umd.edu/active/#Object"/>
+        <rdfs:subPropertyOf rdf:resource="http://cs.umd.edu/active/#motion"/>
+    </owl:ObjectProperty>
+
+
+
+    <!--
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+
+
+    <!-- http://cs.umd.edu/active/#coord -->
+
+    <owl:DatatypeProperty rdf:about="http://cs.umd.edu/active/#coord">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Coordinate values for cartesian space</rdfs:comment>
+        <rdfs:domain rdf:resource="http://cs.umd.edu/active/#Point"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+
+
+
+    <!-- http://cs.umd.edu/active/#name -->
+
+    <owl:DatatypeProperty rdf:about="http://cs.umd.edu/active/#name"/>
+
+
+
+    <!-- http://cs.umd.edu/active/#x -->
+
+    <owl:DatatypeProperty rdf:about="http://cs.umd.edu/active/#x">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The first coordinate in a coordinate tuple. Relating to the X-Axis</rdfs:comment>
+        <rdfs:domain rdf:resource="http://cs.umd.edu/active/#Point"/>
+        <rdfs:subPropertyOf rdf:resource="http://cs.umd.edu/active/#coord"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+
+
+
+    <!-- http://cs.umd.edu/active/#y -->
+
+    <owl:DatatypeProperty rdf:about="http://cs.umd.edu/active/#y">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The second coordinate in a coordinate tuple. Relating to the Y-Axis</rdfs:comment>
+        <rdfs:domain rdf:resource="http://cs.umd.edu/active/#Point"/>
+        <rdfs:subPropertyOf rdf:resource="http://cs.umd.edu/active/#coord"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+
+
+
+    <!-- http://cs.umd.edu/active/#z -->
+
+    <owl:DatatypeProperty rdf:about="http://cs.umd.edu/active/#z">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The third value in a coordinate tuple. Relating to the Z-Axis</rdfs:comment>
+        <rdfs:domain rdf:resource="http://cs.umd.edu/active/#Point"/>
+        <rdfs:subPropertyOf rdf:resource="http://cs.umd.edu/active/#coord"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+
+
+
+    <!--
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+
+
+    <!-- http://cs.umd.edu/active/#Action -->
+
+    <owl:Class rdf:about="http://cs.umd.edu/active/#Action">
+        <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#Predicate"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://cs.umd.edu/active/#actor"/>
+                <owl:someValuesFrom rdf:resource="http://cs.umd.edu/active/#Agent"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A specialized predicate where the first argument MUST be an Agent. This usually represents an agent&apos;s behavior or state in the world.</rdfs:comment>
+    </owl:Class>
+
+
+
+    <!-- http://cs.umd.edu/active/#Agent -->
+
+    <owl:Class rdf:about="http://cs.umd.edu/active/#Agent">
+        <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#Object"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An entity that can actuate and sense their environment. They have AGENCY, the ability to affect the world. There are both volitional and non-volitional Agents.</rdfs:comment>
+    </owl:Class>
+
+
+
+    <!-- http://cs.umd.edu/active/#Coordinate-2D -->
+
+    <owl:Class rdf:about="http://cs.umd.edu/active/#Coordinate-2D">
+        <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#Point"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://cs.umd.edu/active/#x"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://cs.umd.edu/active/#y"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A two dimensional point represented by x and y coordinates.</rdfs:comment>
+    </owl:Class>
+
+
+
+    <!-- http://cs.umd.edu/active/#Coordinate-3D -->
+
+    <owl:Class rdf:about="http://cs.umd.edu/active/#Coordinate-3D">
+        <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#Point"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://cs.umd.edu/active/#z"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://cs.umd.edu/active/#y"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://cs.umd.edu/active/#x"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A point in three dimensional space represented by x, y, and z coordinates.</rdfs:comment>
+    </owl:Class>
+
+
+
+    <!-- http://cs.umd.edu/active/#Descriptor -->
+
+    <owl:Class rdf:about="http://cs.umd.edu/active/#Descriptor">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Classes that are used exclusively as ranges in object properties. These are more specific than the primitive data types (int, string, etc.) and increase the level of instance specificity.
+
+Attribute is abstract and should not be instantiated.</rdfs:comment>
+    </owl:Class>
+
+
+
+    <!-- http://cs.umd.edu/active/#Explanation -->
+
+    <owl:Class rdf:about="http://cs.umd.edu/active/#Explanation">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An explanation of an anomaly, used to generate new goals in the environment.
+
+Explanation is abstract and should not be instantiated.</rdfs:comment>
+    </owl:Class>
+
+
+
+    <!-- http://cs.umd.edu/active/#Location -->
+
+    <owl:Class rdf:about="http://cs.umd.edu/active/#Location">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Represents a point in space with continuous time. (E.g. a fixed point in space regardless of time). Locations are generic, and the most basic locations  simply have coordinates.
+
+Location is abstract and should not be instantiated.</rdfs:comment>
+    </owl:Class>
+
+
+
+    <!-- http://cs.umd.edu/active/#Nature -->
+
+    <owl:Class rdf:about="http://cs.umd.edu/active/#Nature">
+        <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#Non-Volitional-Agent"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Phenomena of the physical world</rdfs:comment>
+    </owl:Class>
+
+
+
+    <!-- http://cs.umd.edu/active/#Non-Volitional-Agent -->
+
+    <owl:Class rdf:about="http://cs.umd.edu/active/#Non-Volitional-Agent">
+        <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#Agent"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An agent that acts without volition (e.g. will) such as a force of nature; something that affects the world without choice.</rdfs:comment>
+    </owl:Class>
+
+
+
+    <!-- http://cs.umd.edu/active/#Object -->
+
+    <owl:Class rdf:about="http://cs.umd.edu/active/#Object">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A physical object,  something that exists in the world and can be touched or manipulated. A person is an object, so is a rock. Truth is not an object.
+
+Object is abstract and should not be instantiated.</rdfs:comment>
+    </owl:Class>
+
+
+
+    <!-- http://cs.umd.edu/active/#Object-Attribute -->
+
+    <owl:Class rdf:about="http://cs.umd.edu/active/#Object-Attribute">
+        <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#Descriptor"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An attribute of a physical object (like temperature)</rdfs:comment>
+    </owl:Class>
+
+
+
+    <!-- http://cs.umd.edu/active/#Person -->
+
+    <owl:Class rdf:about="http://cs.umd.edu/active/#Person">
+        <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#Volitional-Agent"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A human or human-recognizable entity (for the sake of this ontology, Aliens that behave with culture like humans are also considered people).</rdfs:comment>
+    </owl:Class>
+
+
+
+    <!-- http://cs.umd.edu/active/#Physical-Transportation -->
+
+    <owl:Class rdf:about="http://cs.umd.edu/active/#Physical-Transportation">
+        <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#Action"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://cs.umd.edu/active/#to"/>
+                <owl:someValuesFrom rdf:resource="http://cs.umd.edu/active/#Location"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://cs.umd.edu/active/#object"/>
+                <owl:someValuesFrom rdf:resource="http://cs.umd.edu/active/#Object"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The physical movement of one object by an actor from one location to another location.</rdfs:comment>
+    </owl:Class>
+
+
+
+    <!-- http://cs.umd.edu/active/#Point -->
+
+    <owl:Class rdf:about="http://cs.umd.edu/active/#Point">
+        <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#Location"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Represents a single point in space through the representation of Cartesian coordinates depending on the dimensionality of that space. Generally speaking there are 2D and 3D points.</rdfs:comment>
+    </owl:Class>
+
+
+
+    <!-- http://cs.umd.edu/active/#Predicate -->
+
+    <owl:Class rdf:about="http://cs.umd.edu/active/#Predicate">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A Predicate is a function or a relation over a series of arguments. Predicates must have at least one argument, normally considered the SUBECT. Other arguments include OBJECTs, INDIRECT OBJECTs and other modifiers.
+
+Predicate is abstract and should not be instantiated.</rdfs:comment>
+    </owl:Class>
+
+
+
+    <!-- http://cs.umd.edu/active/#Temperature -->
+
+    <owl:Class rdf:about="http://cs.umd.edu/active/#Temperature">
+        <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#Object-Attribute"/>
+    </owl:Class>
+
+
+
+    <!-- http://cs.umd.edu/active/#Truth -->
+
+    <owl:Class rdf:about="http://cs.umd.edu/active/#Truth">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not an abstract class! This class should only have two instances, True and False.</rdfs:comment>
+    </owl:Class>
+
+
+
+    <!-- http://cs.umd.edu/active/#Volitional-Agent -->
+
+    <owl:Class rdf:about="http://cs.umd.edu/active/#Volitional-Agent">
+        <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#Agent"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Agents that act conscious of the choices or decisions that they  make; Agents with the power or faculty of choosing.</rdfs:comment>
+    </owl:Class>
+
+
+
+    <!-- http://www.w3.org/2002/07/owl#Thing -->
+
+    <rdf:Description rdf:about="http://www.w3.org/2002/07/owl#Thing">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Top-level abstract instance. Thing should not be instantiated.</rdfs:comment>
+    </rdf:Description>
+
+
+
+    <!--
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+
+
+    <!-- http://cs.umd.edu/active/#False -->
+
+    <owl:NamedIndividual rdf:about="http://cs.umd.edu/active/#False">
+        <rdf:type rdf:resource="http://cs.umd.edu/active/#Truth"/>
+    </owl:NamedIndividual>
+
+
+
+    <!-- http://cs.umd.edu/active/#True -->
+
+    <owl:NamedIndividual rdf:about="http://cs.umd.edu/active/#True">
+        <rdf:type rdf:resource="http://cs.umd.edu/active/#Truth"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.8) http://owlapi.sourceforge.net -->
+
