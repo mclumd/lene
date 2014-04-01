@@ -11,6 +11,8 @@
 
 """
 Creates an RDF/OWL ontology from a KB
+
+TODO: How to add classes/instances/properties etc to ontology?
 """
 
 ##########################################################################
