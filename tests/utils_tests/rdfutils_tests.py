@@ -21,7 +21,7 @@ import unittest
 import rdflib.term
 
 from lene.utils.rdfutils import *
-from lene.vocabs import OWL
+from lene.ontology.vocabs import OWL
 from rdflib import RDFS, BNode
 
 ##########################################################################

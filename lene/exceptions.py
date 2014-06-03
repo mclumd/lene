@@ -49,6 +49,22 @@ class SyntacticError(LexicalError):
     pass
 
 ##########################################################################
+## RDF/OWL Exception
+##########################################################################
+
+class OntologyException(LeneException):
+    """
+    Error constructing RDF or reading the ontology
+    """
+    pass
+
+class GraphBindingError(OntologyException):
+    """
+    Binding or unbinding from a graph caused an issue
+    """
+    pass
+
+##########################################################################
 ## Runtime Exception
 ##########################################################################
 

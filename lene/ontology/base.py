@@ -23,8 +23,8 @@ import rdflib
 import urllib2
 import operator
 
-from utils.rdfutils import *
-from vocabs import OWL, DUBLINCORE as DC
+from lene.utils.rdfutils import *
+from lene.ontology.vocabs import OWL, DUBLINCORE as DC
 from rdflib import Namespace, exceptions, URIRef, RDFS, RDF, BNode
 
 ##########################################################################

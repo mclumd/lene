@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#person">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Person</rdfs:label>
+    <rdfs:comment></rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#temperature-value">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:label>Temperature-Value</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#physical-object-attribute-value"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#physical-object-attribute">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:label>Physical-Object-Attribute</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#d_">
+    <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#square"/>
+    <rdfs:comment></rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>D_</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#crime">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    <rdfs:label>Crime</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:comment></rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#burns">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#violent-mop"/>
+    <rdfs:label>Burns</rdfs:label>
+    <rdfs:comment></rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#gui_montag">
+    <rdf:type rdf:resource="http://cs.umd.edu/active/#person"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#ignition-xp">
+    <rdfs:comment></rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#primitive-xp"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Ignition-Xp</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#t_">
+    <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#triangle"/>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:label>T_</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#triangle">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#block"/>
+    <rdfs:label>Triangle</rdfs:label>
+    <rdfs:comment></rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#stack">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Stack</rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#mop"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#xp">
+    <rdfs:label>Xp</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    <rdfs:comment></rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#putdown">
+    <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#mop"/>
+    <rdfs:comment></rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Putdown</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#primitive-xp">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Primitive-Xp</rdfs:label>
+    <rdfs:comment></rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#physical-object-attribute-value">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    <rdfs:label>Physical-Object-Attribute-Value</rdfs:label>
+    <rdfs:comment></rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#violent-mop">
+    <rdfs:label>Violent-Mop</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    <rdfs:comment></rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#nature">
+    <rdfs:label>Nature</rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#non-volitional-agent"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#non-volitional-agent">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#abstract-object"/>
+    <rdfs:label>Non-Volitional-Agent</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#pickup">
+    <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#mop"/>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:label>Pickup</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#block">
+    <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#toy"/>
+    <rdfs:label>Block</rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#c_">
+    <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#square"/>
+    <rdfs:label>C_</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:comment></rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#apprehend">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#mop"/>
+    <rdfs:label>Apprehend</rdfs:label>
+    <rdfs:comment></rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#oxygen">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#physical-object"/>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:label>Oxygen</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#physical-object">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    <rdfs:label>Physical-Object</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:comment></rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#abstract-object">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    <rdfs:label>Abstract-Object</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:comment></rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#very-hot.0">
+    <rdf:type rdf:resource="http://cs.umd.edu/active/#temperature-value"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#b_">
+    <rdfs:label>B_</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#square"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#nature.0">
+    <rdf:type rdf:resource="http://cs.umd.edu/active/#nature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#arsonist-xp">
+    <rdfs:label>Arsonist-Xp</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#xp"/>
+    <rdfs:comment></rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#putoutfire">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Putoutfire</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#mop"/>
+    <rdfs:comment></rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#medium-temperature.0">
+    <rdf:type rdf:resource="http://cs.umd.edu/active/#temperature-value"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#temperature">
+    <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#physical-object-attribute"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Temperature</rdfs:label>
+    <rdfs:comment></rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#forced-by-states">
+    <rdfs:comment></rdfs:comment>
+    <rdfs:label>Forced-By-States</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#primitive-xp"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#mop">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    <rdfs:label>Mop</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:comment></rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#toy">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Toy</rdfs:label>
+    <rdfs:comment></rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#arson">
+    <rdfs:label>Arson</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#crime"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:comment></rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#hot.0">
+    <rdf:type rdf:resource="http://cs.umd.edu/active/#temperature-value"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#a_">
+    <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#square"/>
+    <rdfs:comment></rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>A_</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#very-cold.0">
+    <rdf:type rdf:resource="http://cs.umd.edu/active/#temperature-value"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#square">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#block"/>
+    <rdfs:label>Square</rdfs:label>
+    <rdfs:comment></rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#unstack">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Unstack</rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#mop"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#cold.0">
+    <rdf:type rdf:resource="http://cs.umd.edu/active/#temperature-value"/>
+  </rdf:Description>
+</rdf:RDF>
+

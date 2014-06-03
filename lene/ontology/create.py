@@ -19,6 +19,8 @@ Tools and helpers to create ontologies from scratch
 
 import logging
 
+from lene.utils import *
+from lene.exceptions import *
 from rdflib import Graph, Literal, Namespace, URIRef
 from rdflib.namespace import DC, FOAF, OWL, RDF, RDFS
 
@@ -45,6 +47,10 @@ class OWLClass(object):
         self.comment = comment
 
     @property
+    def root(self):
+        return (self.node, RDF.type, OWL.Class)
+
+    @property
     def triples(self):
         """
         Returns the various triples constructed by this object.
@@ -63,11 +69,91 @@ class OWLClass(object):
         for triple in self.triples:
             graph.add(triple)
 
-    def instantiate(self, name):
+    def unbind(self, graph):
+        """
+        Remove the triples of this class from a particular graph
+        """
+        graph.remove((self.node, None, None))
+
+    def isbound(self, graph):
+        """
+        Check if this type has been registered in the graph
+        """
+        return self.root in graph
+
+    def instantiate(self, name, graph=None):
         """
         Returns a triple representing the instance of this class
         """
-        return (URIRef(UMD[name]), RDF.type, self.node)
+        instance = (URIRef(UMD[name]), RDF.type, self.node)
+        if graph:
+            graph.add(instance)
+        return instance
+
+class OWLGraph(object):
+    """
+    Wraps the rdflib graph object to create an OWL specific graph, notably
+    from a Symbolic expression tree that is parsed from a lisp file.
+
+    TODO: This is badly named and badly added in code- just here to make
+        the development go faster. Some sort of decoupling from this object
+        and the S-Expressions in Lisp is required.
+    """
+
+    # TODO: Replace with a regular expression
+    DEFINES = ('define-frame', 'define-attribute-value', 'define-relation')
+
+    def __init__(self, tree, lazy=False):
+        """
+        If lazy, do not run the make_graph method on the tree, but keep
+        the graph object as None, this will ensure lazy loading is possible
+        """
+        self.graph = None
+        self.tree  = tree
+        if not lazy: self.make_graph()
+
+    def make_graph(self):
+        if self.graph is not None:
+            raise GraphBindingError("Graph has already been created on %r" % self)
+        self.graph = Graph()
+
+        for stmt in self.tree:
+            if stmt[0] in self.DEFINES:
+                label = stmt[1].lower()
+                props = stmt[2]
+
+                if props[0].lower() == 'isa':
+                    plabel = props[1][1][0].lower()
+                    parent = OWLClass(plabel, OWL.Thing, plabel.title())
+                    if not parent.isbound(self.graph):
+                        parent.bind(self.graph)
+
+                    if stmt[0] == 'define-attribute-value':
+                        thing = parent.instantiate(label, graph=self.graph)
+                    else:
+                        thing  = OWLClass(label, parent.node, label.title())
+                        if thing.isbound(self.graph):
+                            thing.unbind(self.graph)
+                        thing.bind(self.graph)
+
+        return self.graph
+
+    def serialize(self, *args, **kwargs):
+        self.graph.bind("dc", DC)
+        self.graph.bind("owl", OWL)
+        self.graph.bind("umd", UMD)
+        return self.graph.serialize(*args, **kwargs)
+
+    def write(self, path):
+        with open(path, 'w') as out:
+            out.write(self.serialize())
+
+    def __contains__(self, obj):
+        return obj in self.graph
+
+    def __iter__(self):
+        for obj in self.graph:
+            yield obj
 
 ##########################################################################
 ## Main method, usage, and testing
