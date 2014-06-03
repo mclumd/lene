@@ -36,11 +36,28 @@ from rdflib import Graph, Literal, Namespace, URIRef
 from rdflib.namespace import DC, FOAF, OWL, RDF, RDFS
 
 ##########################################################################
-## OWLClass Tests
+## OWLClass Unit Tests
 ##########################################################################
 
 class OWLClassTests(unittest.TestCase):
-    pass
+
+    @unittest.skip("Not implemented")
+    def test_bind_to_graph(self):
+        """
+        Assert that binding adds correct number of nodes
+        """
+        pass
+
+    @unittest.skip("Not implemented")
+    def test_unbind_from_graph(self):
+        """
+        Assert that unbinding removes correct number of nodes
+        """
+        pass
+
+##########################################################################
+## OWLClass Integration Tests
+##########################################################################
 
 class OWLClassIntegrationTest(unittest.TestCase):
     """
@@ -74,3 +91,10 @@ class OWLClassIntegrationTest(unittest.TestCase):
         self.assertIn(Flower.root, graph)
         self.assertIn(Shrub.root, graph)
         self.assertIn(instance, graph)
+
+##########################################################################
+## OWLGraph Tests
+##########################################################################
+
+class OWLGraphTests(unittest.TestCase):
+    pass
