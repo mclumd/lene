@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#Plant">
+    <rdfs:comment>The class of all plant types</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>The plant type</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#Flower">
+    <rdfs:label>Flowering plants</rdfs:label>
+    <rdfs:comment>Flowering plants, also known as angiosperms.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#Plant"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#Magnolia">
+    <rdf:type rdf:resource="http://cs.umd.edu/active/#Flower"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://cs.umd.edu/active/#Shrub">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:comment>Shrubs, a type of plant which branches from the base.</rdfs:comment>
+    <rdfs:label>Shrubbery</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://cs.umd.edu/active/#Plant"/>
+  </rdf:Description>
+</rdf:RDF>
+

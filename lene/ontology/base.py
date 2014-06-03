@@ -476,7 +476,7 @@ class Ontology(object):
         """
         pass
 
-    def property_find(self, name, exact=False, predicate=", include_implicit"=False):
+    def property_find(self, name, exact=False, predicate="", include_implicit=False):
         """
         Find a property from its name within an ontology graph.
         """
