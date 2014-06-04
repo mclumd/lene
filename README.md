@@ -42,9 +42,32 @@ commit any environment files or packages.
 To interpret a Lisp file with `lene`, you can use the `load` or `loads`
 functions to parse a .lisp file into a Python object- a list based Tree.
 
+    import lene
     data = lene.load(open('rep_fire.lisp'))
 
+Alternatively, if you are reading from a socket you can parse the tree
+with the `loads` function, which parses a string in memory.
+
+    data = lene.loads("(define-frame BLOCK (isa (value (toy))))")
+
+Note also that a socket is a File-like object, so you can pass it into the
+`load` method if you know how much to `read` off the socket.
+
 This structure can then be read for linkages to convert to an RDF document.
+
+    ontology = lene.make_graph(data, title="Mcl Ontology", description="My first ontology")
+    print ontology.serialize()
+
+You can also write out the ontology to disk if you wish, using `write`:
+
+    ontology.write('path/to/ontology.owl')
+
+Lene uses [rdflib](https://rdflib.readthedocs.org) under the hood to
+construct the ontology, you can get direct access to the `rdflib.Graph`
+object with a call, somewhat redundantly named: `OWLGraph(tree).graph` -
+helper methods do make this a bit easier on you. This is important,
+because you can then perform SPARQL queries on the underlying RDF using
+the rdflib plugin library.
 
 ### Testing ###
 This package is unit tested with `nosetests`. In the root of the package

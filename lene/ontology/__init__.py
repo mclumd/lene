@@ -18,3 +18,24 @@ Module for interacting with and accessing Ontologies
 ##########################################################################
 
 from .base import *
+from .create import OWLClass, OWLGraph, UMD
+
+##########################################################################
+## Module functions
+##########################################################################
+
+def make_graph(tree, lazy=False, **options):
+    """
+    Returns an RDF graph from a parsed LISP tree. Lazy loading means that
+    you will have to call the `OWLGraph.make_graph` method yourself to get
+    access to the RDF graph under the hood. Possible options are:
+
+        - title
+        - description
+        - creators (a list of creators names)
+        - date (defaults to the current date)
+
+    This function doesn't do too much, but is a quick way to start making
+    RDF graphs from S-Expression trees.
+    """
+    return OWLGraph(tree, lazy=lazy, **options)

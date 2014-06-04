@@ -18,3 +18,4 @@ A frame extraction tool for META-Aqua
 ##########################################################################
 
 from .parser import load, loads
+from .ontology import *
