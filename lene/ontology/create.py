@@ -48,10 +48,10 @@ class OWLClass(object):
     Construct an OWL Class
     """
 
-    def __init__(self, name, parent, label="", comment=""):
+    def __init__(self, name, parent=OWL.Thing, label="", comment=""):
         self.node    = URIRef(UMD[name])
-        self.parent  = parent
-        self.label   = label
+        self.parent  = parent.node if isinstance(parent, OWLClass) else parent
+        self.label   = label or name
         self.comment = comment
 
     @property
@@ -64,7 +64,7 @@ class OWLClass(object):
         Returns the various triples constructed by this object.
         """
         return (
-            (self.node, RDF.type, OWL.Class),
+            self.root,
             (self.node, RDFS.subClassOf, self.parent),
             (self.node, RDFS.label, Literal(self.label)),
             (self.node, RDFS.comment, Literal(self.comment)),
@@ -98,6 +98,56 @@ class OWLClass(object):
         if graph:
             graph.add(instance)
         return instance
+
+##########################################################################
+## OWL Object Properties
+##########################################################################
+
+class OWLObjectProperty(OWLClass):
+    """
+    Helper to construct an OWL Object Property
+    """
+
+    def __init__(self, name, parent=OWL.topObjectProperty, domain=OWL.Thing,
+                       range=OWL.Thing, label="", comment=""):
+
+        self.node    = URIRef(UMD[name])
+        self.parent  = parent.node if isinstance(parent, OWLClass) else parent
+        self.domain  = domain.node if isinstance(domain, OWLClass) else domain
+        self.range   = range.node if isinstance(range, OWLClass) else range
+        self.label   = label or name
+        self.comment = comment
+
+    @property
+    def root(self):
+        return (self.node, RDF.type, OWL.ObjectProperty)
+
+    @property
+    def triples(self):
+        """
+        Returns the various triples constructed by this object.
+        """
+        return (
+            self.root,
+            (self.node, RDFS.subClassOf, self.parent),
+            (self.node, OWL.domain, self.domain),
+            (self.node, OWL.range, self.range),
+            (self.node, RDFS.label, Literal(self.label)),
+            (self.node, RDFS.comment, Literal(self.comment)),
+        )
+
+    def instantiate(self, domain, range, graph=None):
+        domain   = domain[0] if isinstance(domain, tuple) else domain
+        range    = range[0] if isinstance(range, tuple) else range
+
+        instance = (domain, self.node, range)
+        if graph:
+            graph.add(instance)
+        return instance
+
+##########################################################################
+## OWL Graph
+##########################################################################
 
 class OWLGraph(object):
     """
@@ -136,7 +186,10 @@ class OWLGraph(object):
 
         for stmt in self.tree:
             if stmt[0] in self.DEFINES:
-                thing = self.add_class(stmt)
+                if stmt[0] == DEFINE_RELATION:
+                    relation = self.add_relation(stmt)
+                else:
+                    thing = self.add_thing(stmt)
             else:
                 logging.warn("Unknown expression '%s'" % stmt[0])
         return self.graph
@@ -173,13 +226,12 @@ class OWLGraph(object):
         necessarily part of the tree structure. Override this in subclasses
         to construct your graph before parsing the lisp tree.
         """
-        Relation = OWLClass("Relation", OWL.Thing, "Relation", "A function or a relation over a series of arguments.").bind(self.graph)
         Truth = OWLClass("Truth", OWL.Thing, "Truth", "This class should always have two instances, True and False.").bind(self.graph)
         false = Truth.instantiate('false.0', graph=self.graph)
         true  = Truth.instantiate('true.0', graph=self.graph)
         nil   = Truth.instantiate('nil.0', graph=self.graph)
 
-    def add_class(self, expression):
+    def add_thing(self, expression):
         """
         Adds to the class hierarchy of the ontology.
 
@@ -190,7 +242,6 @@ class OWLGraph(object):
               ...)
 
         Frame definitions will be added as subclasses of OWL.Thing
-        Relation definitions will be added as subclasses of UMD.Relation
         Attribute Values definitions will be added as instances
         """
         define = expression[0]
@@ -206,7 +257,7 @@ class OWLGraph(object):
         # Get the parent label by going into the (isa (value (label))) subtree
         # Then construct the parent in the ontology as a placeholder if not bound
         parent = props[1][1][0].title()
-        parent = OWLClass(parent, OWL.Thing, parent)
+        parent = OWLClass(parent)
 
         if not parent.isbound(self.graph):
             parent.bind(self.graph)
@@ -217,12 +268,68 @@ class OWLGraph(object):
             # Add instance to the graph through the parent
             thing = parent.instantiate(label, graph=self.graph)
         else:
-            thing  = OWLClass(label, parent.node, label)
+            thing  = OWLClass(label, parent)
             # Update by remove old/add new -- then add to graph
             if thing.isbound(self.graph): thing.unbind(self.graph)
             thing.bind(self.graph)
 
         return thing
+
+    def add_relation(self, expression):
+        """
+        Adds an Object Property based on the domain and co-domain of the
+        relation in the Lisp representation. Handles the slot attribute.
+
+        The expression must be in the form of:
+
+            (define-relation TEMPERATURE
+                (isa            (value (physical-object-attribute)))
+                (domain         (value (physical-object)))
+                (co-domain      (value (temperature-value)))
+                (slot           (value (temperature)))
+                )
+
+        Relation definitions will be added as subclasses of OWL.ObjectProperty
+        """
+        define = expression[0]
+        label  = expression[1].title()
+        props  = dict(expression[2:])
+
+        # We have chosen to parse only define frames to add classes/instances
+        assert define == DEFINE_RELATION
+
+        # The isa, domain, co-domain, and slot must be present
+        for key in ('isa', 'domain', 'co-domain', 'slot'):
+            assert key in props
+
+        # Get the parent label by going into the (isa (value (label))) subtree
+        # Then construct the parent in the ontology as a placeholder if not bound
+        parent = props['isa'][1][0].title()
+        parent = OWLObjectProperty(parent)
+        if not parent.isbound(self.graph):
+            parent.bind(self.graph)
+
+        # Get the domain and co-domain from the properties and construct
+        # them in the ontology if their placeholder isn't found.
+        domain   = props['domain'][1][0].title()
+        domain   = OWLClass(domain)
+
+        codomain = props['co-domain'][1][0].title()
+        codomain = OWLClass(codomain)
+
+        # Retreive the slot to use as label
+        slot     = props['slot'][1][0]
+
+        # Is there some way to insantiate a relation?
+        # Actually, come to think of it, I don't see a lot of instances in the reps
+
+        relation = OWLObjectProperty(label, parent, domain, codomain, slot)
+
+        # Update by remove old/add new -- then add to graph
+        if relation.isbound(self.graph): relation.unbind(self.graph)
+        relation.bind(self.graph)
+
+        return relation
 
     def serialize(self, *args, **kwargs):
         self.graph.bind("dc", DC)
@@ -260,8 +367,17 @@ if __name__ == '__main__':
     Flower.bind(graph)
     Shrub.bind(graph)
 
+    # Create Properties
+    similarlyPopularTo = OWLObjectProperty("similarlyPopularTo", OWL.topObjectProperty, Plant, Plant)
+    similarlyPopularTo.bind(graph)
+
     # Create and bind an instance of a flower
-    graph.add(Flower.instantiate("Magnolia"))
+    orchid   = Flower.instantiate("Orchid", graph=graph)
+    magnolia = Flower.instantiate("Magnolia", graph=graph)
+
+    # Create a relationship between flowers
+    similarlyPopularTo.instantiate(orchid, magnolia, graph=graph)
+    similarlyPopularTo.instantiate(magnolia, orchid, graph=graph)
 
     # Bind the namespaces to the graph
     graph.bind("dc", DC)
