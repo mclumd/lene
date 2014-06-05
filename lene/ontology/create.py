@@ -335,6 +335,8 @@ class OWLGraph(object):
         self.graph.bind("dc", DC)
         self.graph.bind("owl", OWL)
         self.graph.bind("umd", UMD)
+        
+        if 'format' not in kwargs: kwargs['format'] = 'pretty-xml'
         return self.graph.serialize(*args, **kwargs)
 
     def write(self, path):
